@@ -1,0 +1,34 @@
+pipeline {
+  agent any
+  triggers {
+    pollSCM('H/3 * * * *')
+  }
+  stages {
+    stage('Check-pre-requisite') {
+      steps {
+        sh 'terraform -version'
+        sh 'aws sts get-caller-identity'
+      }
+    }
+    stage('initialize') {
+      steps {
+        sh 'terraform init -input=false'
+      }
+    }
+    stage('validate') {
+      steps {
+        sh 'terraform validate'
+      }
+    }
+    stage('Format') {
+      steps {
+        sh 'terraform fmt -check'
+      }
+    }
+    stage('plan') {
+      steps {
+        sh 'terraform plan -out=tfplan'
+      }
+    }
+  }
+}
