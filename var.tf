@@ -1,16 +1,16 @@
 variable "region" {
-    default = "ap-south-1"
+  default = "ap-south-1"
 }
 
 variable "env" {}
 
 variable "ami_id" {}
 variable "num_of_vm" {
- type = number  
-    validation {
-        condition = var.num_of_vm >= 1 && var.num_of_vm <= 10
-        error_message = "Instance count must be between 1 and 10."
-    }
+  type = number
+  validation {
+    condition     = var.num_of_vm >= 1 && var.num_of_vm <= 10
+    error_message = "Instance count must be between 1 and 10."
+  }
 
 }
 
@@ -24,15 +24,15 @@ variable "instance_type" {
 
 
 variable "subnets" {
-    type = list
-    
+  type = list(any)
+
 }
 
 variable "region_ami_map" {
   type = map(string)
   default = {
     "ap-south-1" = "ami-0ced6a024bb18ff2e"
-    "us-east-1" = "ami-12345"
+    "us-east-1"  = "ami-12345"
   }
 }
 
