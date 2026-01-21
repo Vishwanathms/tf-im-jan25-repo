@@ -28,6 +28,17 @@ pipeline {
     stage('plan') {
       steps {
         sh 'terraform plan -out=tfplan'
+        sh 'terraform show -json tfplan > tfplan.json'
+      }
+    }
+    stage('Approval') {
+      steps {
+        input message: 'Approve Terraform Apply?'
+      }
+    }
+    stage('Terraform Apply') {
+      steps {
+        sh 'terraform apply -auto-approve tfplan'
       }
     }
   }
