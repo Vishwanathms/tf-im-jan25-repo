@@ -24,7 +24,7 @@ resource "aws_instance" "main" {
 
   tags = {
     "Name" = local.tag_Name
-    "owner" = "Viswa-01"
+    "owner" = "Viswa-01-added"
   }
 }
  
